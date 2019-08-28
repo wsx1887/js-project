@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>链接测试</title>
+    <style>
+        .test{
+            outline-color: red
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="input-group">
+            <label for="baselink">替换链接：</label>
+            <input type="text" placeholder="用星号*作为替换符" id="baselink" />
+        </div>
+        <div class="input-group">
+            <label for="startnumber">开头的数字：</label>
+            <input type="number" placeholder="只限数字" id="startnumber" />
+        </div>
+        <div class="input-group">
+            <label for="endnumber">结尾的数字：</label>
+            <input type="number" id="endnumber" placeholder="只限数字" />
+        </div>
+        <div class="input-group">
+            <button class="replace">替换</button>
+        </div>
+        <section>
+            <textarea name="textarea-notest" id="notest" cols="30" rows="10" placeholder="等待测试的链接 例：
+http://test.com/1
+http://test.com/2
+暂时对https安全链接不友好"></textarea>
+            <button class="test">提交测试</button>
+        </section>
+        <section>
+            <textarea name="textarea-havetest" id="havetest" cols="30" rows="10" placeholder="存活的链接"></textarea>
+        </section>
+        <section>
+            <textarea name="textarea-foropen" id="foropen" cols="30" rows="10"></textarea>
+            <button class="open">批量打开</button>
+        </section>
+    </div>
+    <script src="../../myJS/axios/axios.0.19.0.min.js"></script>
+    <script>
+        //批量打开按钮
+        document.querySelector(".open").addEventListener("click", event => {
+			let urlArray=document.getElementById("foropen").value.split("\n").filter(item=>item!="");
+				urlArray.forEach(value => {
+                    window.open(value);
+
+                })
+        }, false);
+        //提交测试按钮
+        document.querySelector(".test").addEventListener("click", event => {
+            let str=document.getElementById("notest").value;
+            let urlArray=str.split("\n").filter(item=>item!="");
+            axios.post('/api/mywork/testlink',urlArray).then(res=>{
+				let havetestArea=document.getElementById("havetest");
+                if(res.data.length>0){
+                    havetestArea.value=res.data.join("\n");
+                }else{
+					havetestArea.value='无存活链接';
+				}
+            });
+        }, false);
+		//替换按钮
+		document.querySelector(".replace").addEventListener("click",event=>{
+			let baselink=document.getElementById("baselink").value;
+			let startNumber=Number(document.getElementById("startnumber").value);
+			let endNumber=Number(document.getElementById("endnumber").value);
+			let resultString="";
+			for(let i=startNumber;i<=endNumber;i++){
+				resultString+=baselink.replace("*",i)+"\n";
+			}
+			document.getElementById("notest").value=resultString;
+		});
+    </script>
+</body>
+
+</html>
