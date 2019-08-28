@@ -5,11 +5,11 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"electron ."
+    "start": "electron ."
   },
   "author": "wsx1887",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^6.0.1"
+    "electron": "^6.0.5"
   }
 }
