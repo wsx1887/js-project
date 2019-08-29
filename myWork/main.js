@@ -1,9 +1,11 @@
 const electron = require('electron');
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被垃圾回收的时候，window对象将会自动的关闭。
 let win;
+//let menu=new Menu();
+//Menu.setApplicationMenu(menu);
 
 app.on('ready', createWindow);
 app.on('window-all-closed', () => {
