@@ -1,5 +1,5 @@
 const createMenu=require('./src/main-process/app-menu.js');
-const { app, BrowserWindow, Menu } = require('electron');
+const { BrowserView,app, BrowserWindow, Menu } = require('electron');
 
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被垃圾回收的时候，window对象将会自动的关闭。
 let win;
@@ -33,6 +33,10 @@ function createWindow() {
     });
     // 加载index.html文件
     win.loadFile('index.html');
+    let view = new BrowserView()
+win.setBrowserView(view)
+view.setBounds({ x: 0, y: 0, width: 300, height: 300 })
+view.webContents.loadURL('https://electronjs.org')
     // 当 window 被关闭，这个事件会被触发。
     win.on('closed', () => {
         // 取消引用 window 对象，如果你的应用支持多窗口的话，
