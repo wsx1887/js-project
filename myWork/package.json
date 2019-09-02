@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^6.0.5"
+  },
+  "dependencies": {
+    "nodemailer": "^6.3.0"
   }
 }
