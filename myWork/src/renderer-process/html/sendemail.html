@@ -6,92 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>批量发送邮件</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        .resizeable {
-            resize: both;
-            overflow: auto;
-        }
-
-        main {
-            margin: auto;
-            width: 35em;
-            padding: 1em;
-            border: 1px solid black;
-        }
-
-        .message-container {
-            position: fixed;
-            top: 0em;
-            left: 0em;
-            z-index: 2;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, .3);
-            text-align: center;
-            display: none;
-        }
-
-        .inline-block {
-            display: inline-block;
-            border: solid 1px rgba(153, 153, 153, 1.00);
-            background-color: rgba(226, 244, 197, 1.00);
-            border-radius: .5em;
-            overflow: hidden;
-        }
-
-        .sending-message {
-            border-top-left-radius: .5em;
-            border-top-right-radius: .5em;
-            display: inline-block;
-            margin: 0;
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding-bottom: .5em;
-        }
-
-        #button-close {
-            display: block;
-            width: 100%;
-            border: none;
-            height: 2em;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: nowrap;
-            margin: .3em 0;
-            padding: .2em 0;
-            background-color: rgba(210, 230, 178, 1.00);
-        }
-
-        .attach-name {
-            padding: 0 1em;
-            min-width: 6em;
-        }
-
-        .sending {
-            margin: auto 0 auto auto;
-            width: 6em;
-            text-align: center;
-            vertical-align: middle;
-            flex-shrink: 0;
-        }
-        #imgs-list{
-            width: 100%;
-        }
-        #attachments-list{
-            width: 100%;
-        }
-    </style>
+<link rel="stylesheet" href="../css/sendemail.css">
 </head>
 
 <body>
     <main class="resizeable">
+        <h2 class="text-center mt-0">批量发送邮件</h2>
         <div class="tools">
             <div class="scan">
                 <label>文件基路径：<input id="path" type="text"></label>
@@ -101,13 +21,13 @@
         <div class="imgs-container">
             <label for="imgs-list">邮件内容里的图片（每封一图）</label>
             <br />
-            <textarea id="imgs-list" cols="70" rows="15" placeholder="数量不需要和附件相等，不够的会重复使用"
+            <textarea id="imgs-list" class="resizeable-y" cols="70" rows="8" placeholder="数量不需要和附件相等，不够的会重复使用"
                 title="数量不需要和附件相等，不够的会重复使用"></textarea>
         </div>
         <div class="attachments-container">
             <label for="attachments-list">邮件附件（每封一个）</label>
             <br />
-            <textarea id="attachments-list" cols="70" rows="15"></textarea>
+            <textarea id="attachments-list" class="resizeable-y" cols="70" rows="8"></textarea>
         </div>
         <button id="sendemail">发送邮件</button>
         <div class="message-container">

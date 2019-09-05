@@ -1,5 +1,4 @@
 let nodemailer = require('nodemailer');
-let axios = require('axios');
 let fs = require('fs');
 
 (function () {
