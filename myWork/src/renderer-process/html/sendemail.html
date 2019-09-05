@@ -15,6 +15,10 @@
             resize: both;
             overflow: auto;
         }
+        .resizeable-y{
+            resize: vertical;
+            overflow: auto;
+        }
 
         main {
             margin: auto;
@@ -81,17 +85,26 @@
             vertical-align: middle;
             flex-shrink: 0;
         }
-        #imgs-list{
+
+        #imgs-list {
             width: 100%;
         }
-        #attachments-list{
+
+        #attachments-list {
             width: 100%;
+        }
+        .text-center{
+            text-align: center;
+        }
+        .mt-0{
+            margin-top: 0%;
         }
     </style>
 </head>
 
 <body>
     <main class="resizeable">
+        <h2 class="text-center mt-0">批量发送邮件</h2>
         <div class="tools">
             <div class="scan">
                 <label>文件基路径：<input id="path" type="text"></label>
@@ -101,13 +114,13 @@
         <div class="imgs-container">
             <label for="imgs-list">邮件内容里的图片（每封一图）</label>
             <br />
-            <textarea id="imgs-list" cols="70" rows="15" placeholder="数量不需要和附件相等，不够的会重复使用"
+            <textarea id="imgs-list" class="resizeable-y" cols="70" rows="8" placeholder="数量不需要和附件相等，不够的会重复使用"
                 title="数量不需要和附件相等，不够的会重复使用"></textarea>
         </div>
         <div class="attachments-container">
             <label for="attachments-list">邮件附件（每封一个）</label>
             <br />
-            <textarea id="attachments-list" cols="70" rows="15"></textarea>
+            <textarea id="attachments-list" class="resizeable-y" cols="70" rows="8"></textarea>
         </div>
         <button id="sendemail">发送邮件</button>
         <div class="message-container">
