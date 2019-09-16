@@ -61,24 +61,26 @@ let fs = require('fs');
             elementList[i] = divSending;
         }
         document.querySelector('.message-container').style.display = 'block';
-/*         for (let i = 0; i < sendMessageArray.length; i++) {
-            elementList[i].innerHTML = '正在发送';
-            let res = await sendMailAsync(sendMessageArray[i]);
-            if (res === 'err') {
-                elementList[i].innerHTML = '失败';
-            } else {
-                elementList[i].innerHTML = '发送成功';
-            }
-        } */
+        /*         for (let i = 0; i < sendMessageArray.length; i++) {
+                    elementList[i].innerHTML = '正在发送';
+                    let res = await sendMailAsync(sendMessageArray[i]);
+                    if (res === 'err') {
+                        elementList[i].innerHTML = '失败';
+                    } else {
+                        elementList[i].innerHTML = '发送成功';
+                    }
+                } */
         //记录已经运行了几个发送邮件线程
         let threadingN = 0;
+        //记录已使用的下标
+        //let indexMessage=0;
 
         //sendingTask：用于setTimeout启动发送线程的函数,
         //index：发送信息数组的下标。
         setTimeout(async function sendingTask(index) {
             threadingN += 1;//线程数+1
 
-            if (index < sendMessageArray.length) {
+            if (index < sendMessageArray.length && threadingN <= data.threading) {
                 //如果未达到指定的线程数，2秒后接着启动另一个发送线程。
                 let temIndex = index + 1;//临时记录已经被使用的下标。
                 if (threadingN < data.threading) {
@@ -94,11 +96,12 @@ let fs = require('fs');
                     elementList[index].innerHTML = '失败';
                 } else {
                     elementList[index].innerHTML = '发送成功';
-                    threadingN-=1;
+                    threadingN -= 1;
                 }
 
                 //此线程完成后启动下一个线程
-                setTimeout(sendingTask, 0, temIndex + 1);
+                //setTimeout(sendingTask, 0, temIndex + 1);
+                sendingTask(temIndex + 1);
             }
             else {
                 threadingN -= 1;
