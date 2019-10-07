@@ -37,7 +37,8 @@ let fs = require('fs');
                 while (n > imgsArray.length - 1) {
                     n -= imgsArray.length;
                 }
-                message.html = `<img src="cid:${i}"/>`;
+                message.html=attachmentArray[i]+'\n';
+                message.html += `<img src="cid:${i}"/>`;
                 message.attachments[1] = {
                     path: basepath + imgsArray[n],
                     cid: i + ''//隐式转换成string
